@@ -1,0 +1,13 @@
+{
+    "port": 8080,
+    "dbConfig": {
+        "host": "localhost",
+        "port": 27017,
+        "dbName": "aesServer"
+    },
+    "mailConfig": {
+        "service": "gmail",
+        "username" : "<email>",
+        "password" : "<password>"
+    }
+}
