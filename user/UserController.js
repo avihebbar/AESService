@@ -52,17 +52,17 @@ router.post('/', function (req, res) {
 
 router.put('/:id', function (req, res) {
     console.log(req.body)
-    User.find({ email: req.body.email }, function (err, user) {
+    User.findById(req.params.id, function (err, user) {
         if (err) {
             console.log(err)
             return res.status(400).json({ error: err })
         }
-        if (user.length == 0) {
+        if (user == null) {
             return res.status(400).json({ error : "User not found" })
         }
-        if (user[0].isFirstLogin) {
+        if (user.isFirstLogin) {
             var password = bcrypt.hashSync(req.body.password, 8);
-            User.findOneAndUpdate({ email: req.body.email }, { password: password, isFirstLogin: false }, function (err, todo) {
+            User.findByIdAndUpdate(req.params.id, { password: password, isFirstLogin: false }, function (err, todo) {
                 if (err) {
                     console.log(err)
                     return res.status(400).send({error : err})
@@ -78,6 +78,7 @@ router.put('/:id', function (req, res) {
 // RETURNS ALL THE USERS IN THE DATABASE
 router.get('/', function (req, res) {
     User.findById(req.userId, function (err, user) {
+        console.log(user)
         if (user.role > UserRoles.ADMIN) {
             return res.status(403).json({ "message": responses.UNAUTHORIZED })
         }

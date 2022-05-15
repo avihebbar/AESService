@@ -15,7 +15,8 @@ router.post('/login', function (req, res) {
     if (err) return res.status(500).send({ error: 'Error on the server.' });
     if (!user) return res.status(404).send({ error: 'No user found.' });
     bcrypt.compare(req.body.password, user.password, function (err, valid) {
-      // if (err || !valid) return res.status(401).send({ error: "Invalid password" });
+      console.log(err, valid)
+      if (err || !valid) return res.status(500).send({ error: "Invalid password" });
 
       var token = jwt.sign({ id: user._id }, config.secret, {
         expiresIn: 86400 // expires in 24 hoursl̥

@@ -7,12 +7,12 @@ function verifyToken(req, res, next) {
   if( req.path.includes("/fileUpload") ) return next()
   var token = req.headers['x-access-token'];
   if (!token)
-    return res.status(403).send({ error: 'No token provided.' });
+    return res.status(401).send({ error: 'No token provided.' });
     
   jwt.verify(token, config.secret, function(err, decoded) {
     if (err){
       console.log(err);
-      return res.status(500).send({ error: 'Failed to authenticate token.' });
+      return res.status(401).send({ error: 'Failed to authenticate token.' });
     }
     
       
