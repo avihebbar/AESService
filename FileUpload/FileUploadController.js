@@ -12,7 +12,7 @@ router.use(busboy());
 router.get('/:id', function (req, res) {
     var id = req.params.id
     console.log(__dirname)
-    res.sendFile(process.cwd() + '/Assets/' + id +".jpg", function(err){
+    res.sendFile('./Assets/' + id +".jpg", function(err){
         if(err){
             console.log(err);
         }else{
